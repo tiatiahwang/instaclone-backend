@@ -12,4 +12,26 @@ export default {
                 },
             }),
     },
+    Hashtag: {
+        photos: ({ id }, { page }, { loggedInUser }) => {
+            if (!loggedInUser) {
+                throw new Error("Login please.");
+            }
+            return client.hashtag
+                .findUnique({
+                    where: { id },
+                })
+                .photos();
+        },
+        totalPhotos: ({ id }) =>
+            client.photo.count({
+                where: {
+                    hashtags: {
+                        some: {
+                            id,
+                        },
+                    },
+                },
+            }),
+    },
 };
