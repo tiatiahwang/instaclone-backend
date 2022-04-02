@@ -1,11 +1,13 @@
-import client from "../../client";
+import { Resolvers } from '../../typed';
 
-export default {
-    Query: {
-        seeProfile: (_, { userName }) =>
-            client.user.findUnique({
-                where: { userName },
-                include: { following: true, followers: true },
-            }),
-    },
+const resolvers: Resolvers = {
+  Query: {
+    seeProfile: (_, { username }, { client }) =>
+      client.user.findUnique({
+        where: { username },
+        include: { following: true, followers: true },
+      }),
+  },
 };
+
+export default resolvers;
