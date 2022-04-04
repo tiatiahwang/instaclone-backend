@@ -10,4 +10,12 @@ export default {
         },
       }),
   },
+  Hashtag: {
+    photos: ({ id }, { page }, { client }) =>
+      client.hashtag.findUnique({ where: { id } }).photos(),
+    totalPhotos: ({ id }, _, { client }) =>
+      client.photo.count({
+        where: { hashtags: { some: { id } } },
+      }),
+  },
 };
