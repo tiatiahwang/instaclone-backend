@@ -8,7 +8,7 @@
     "migrate": "npx prisma migrate dev --preview-feature",
     "studio": "npx prisma studio",
     "start": "node built/server",
-    "build": "src --out-dir built"
+    "build": "npx tsc"
   },
   "keywords": [],
   "author": "",
