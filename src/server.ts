@@ -14,6 +14,8 @@ const apollo = new ApolloServer({
     return {
       loggedInUser: await getUser(req.headers.token),
       client,
+      introspection: true,
+      playground: true,
     };
   },
 });
