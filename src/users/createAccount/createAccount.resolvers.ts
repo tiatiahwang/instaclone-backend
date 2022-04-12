@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 import { Resolvers } from '../../typed';
 
 const resolvers: Resolvers = {
@@ -14,7 +14,12 @@ const resolvers: Resolvers = {
             OR: [{ username }, { email }],
           },
         });
-        if (isExist) throw new Error('This username/email is already taken.');
+        if (isExist) {
+          return {
+            ok: false,
+            error: '이미 가입된 이메일/사용자이름 입니다',
+          };
+        }
         const hashedPassword = await bcrypt.hash(password, 10);
         await client.user.create({
           data: {
@@ -31,7 +36,7 @@ const resolvers: Resolvers = {
       } catch {
         return {
           ok: false,
-          error: 'cannot create account.',
+          error: '계정을 만들 수 없습니다',
         };
       }
     },
