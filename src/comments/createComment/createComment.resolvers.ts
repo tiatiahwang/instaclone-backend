@@ -15,7 +15,7 @@ const resolvers: Resolvers = {
             error: 'photo does not exist',
           };
         }
-        await client.comment.create({
+        const newComment = await client.comment.create({
           data: {
             payload,
             photo: { connect: { id: photoId } },
@@ -24,6 +24,7 @@ const resolvers: Resolvers = {
         });
         return {
           ok: true,
+          id: newComment.id,
         };
       },
     ),
