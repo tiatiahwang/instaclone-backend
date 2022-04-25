@@ -5,7 +5,7 @@ const resolvers: Resolvers = {
     searchPhotos: async (_, { keyword }, { client }) =>
       await client.photo.findMany({
         where: {
-          caption: { startsWith: keyword },
+          caption: { contains: keyword },
         },
         take: 9,
       }),
